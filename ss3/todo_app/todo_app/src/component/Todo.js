@@ -7,20 +7,26 @@ export class Todo extends Component {
         this.state = {
             list: [],
             item: "",
+            error: "", 
         };
     }
 
     handleChange = (event) => {
-        this.setState({ item: event.target.value });
+        this.setState({ item: event.target.value, error: "" });
     };
 
     handleSubmit = () => {
         const { item, list } = this.state;
         if (item.trim()) {
-            this.setState({
-                list: [...list, item],
-                item: ''
-            });
+            if (list.includes(item)) {
+                this.setState({ error: "Công việc này đã tồn tại rồi!!!" });
+            } else {
+                this.setState({
+                    list: [...list, item],
+                    item: '',
+                    error: '',
+                });
+            }
         }
     };
 
@@ -40,21 +46,21 @@ export class Todo extends Component {
                                 value={this.state.item}
                                 onChange={this.handleChange}
                             />
-                            <button
-                                className="btn btn-success"
-                                onClick={this.handleSubmit}
-                            >
+                            <button className="btn btn-success" onClick={this.handleSubmit}>
                                 Add
                             </button>
                         </div>
 
+                        {this.state.error && (
+                            <div className="alert alert-danger" role="alert">
+                                {this.state.error}
+                            </div>
+                        )}
+
                         {this.state.list.length > 0 && (
                             <ul className="list-group">
                                 {this.state.list.map((todo, index) => (
-                                    <li
-                                        key={index}
-                                        className="list-group-item d-flex justify-content-between align-items-center"
-                                    >
+                                    <li key={index} className="list-group-item d-flex justify-content-between align-items-center">
                                         {todo}
                                         <span className="badge bg-primary rounded-pill">
                                             {index + 1}
