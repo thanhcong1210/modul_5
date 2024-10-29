@@ -1,0 +1,14 @@
+{
+  "books": [
+    {
+      "title": "Đẳng cấp quá",
+      "quantity": 15,
+      "id": 1
+    },
+    {
+      "id": "5743",
+      "title": "123123",
+      "quantity": 123
+    }
+  ]
+}
